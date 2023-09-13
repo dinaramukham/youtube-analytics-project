@@ -20,5 +20,3 @@ class Channel:
         channel = youtube.channels().list(id=self.channel_id , part='snippet,statistics').execute()
         print(printj(channel))
 
-obzbzbz=Channel('UC-OVMPlMA3-YCIeg4z5z23A')
-obzbzbz.print_info()

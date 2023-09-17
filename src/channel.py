@@ -32,3 +32,4 @@ class Channel:
         """ создать специальный объект для работы с API """
         api_key: str = os.getenv('API__KEY')
         return  build('youtube', 'v3', developerKey=api_key)
+

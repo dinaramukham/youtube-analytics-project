@@ -12,6 +12,42 @@ class Channel:
         self.subscriber_count=self.print_info()["items"][0]["statistics"]["subscriberCount"]
         self.video_count = self.print_info()["items"][0]["statistics"]["videoCount"]
         self.viewCount= self.print_info()["items"][0]["statistics"]["viewCount"]
+    def __str__(self):
+        return f"{self.title} ({self.url})"
+    def __add__(self, other):
+        if not isinstance(other,  Channel):
+            raise ValueError("после плюса только экземпляр класса")
+        return int(self.subscriber_count) +  int(other.subscriber_count)
+    def __lt__(self, other):
+        if not isinstance(other,  Channel):
+            raise ValueError("после плюса только экземпляр класса")
+        return int(self.subscriber_count) < int(other.subscriber_count)
+    def __le__(self, other):
+        if not isinstance(other,  Channel):
+            raise ValueError("после плюса только экземпляр класса")
+        return int(self.subscriber_count) <= int(other.subscriber_count)
+    def __gt__(self, other):
+        if not isinstance(other,  Channel):
+            raise ValueError("после плюса только экземпляр класса")
+        return int(self.subscriber_count) > int(other.subscriber_count)
+    def __ge__(self, other):
+        if not isinstance(other,  Channel):
+            raise ValueError("после плюса только экземпляр класса")
+        return int(self.subscriber_count) >= int(other.subscriber_count)
+    def __eq__(self, other):
+        if not isinstance(other,  Channel):
+            raise ValueError("после плюса только экземпляр класса")
+        return int(self.subscriber_count) == int(other.subscriber_count)
+    def __ne__(self, other):
+        if not isinstance(other,  Channel):
+            raise ValueError("после плюса только экземпляр класса")
+        return int(self.subscriber_count) != int(other.subscriber_count)
+
+    def __sub__(self, other):
+        if not isinstance(other,  Channel):
+            raise ValueError("после минуса только экземпляр класса")
+        return int(self.subscriber_count) -  int(other.subscriber_count)
+
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале в формате словаря."""
         youtube = Channel.get_service()
@@ -32,4 +68,3 @@ class Channel:
         """ создать специальный объект для работы с API """
         api_key: str = os.getenv('API__KEY')
         return  build('youtube', 'v3', developerKey=api_key)
-

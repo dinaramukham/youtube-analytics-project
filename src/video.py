@@ -1,6 +1,3 @@
-import os
-import json
-from googleapiclient.discovery import build
 from src.channel import  Channel
 class Video:
     def __init__(self, video_id: str) -> None:

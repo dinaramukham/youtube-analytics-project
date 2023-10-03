@@ -27,7 +27,7 @@ docs: https://developers.google.com/youtube/v3/docs/channels/list
 channel_id = 'UC-OVMPlMA3-YCIeg4z5z23A'  # MoscowPython
 #channel_id = 'UCwHL6WHUarjGfUM_586me8w'  # HighLoad Channel
 channel = youtube.channels().list(id=channel_id, part='snippet,statistics').execute()
-printj(channel )
+#printj(channel )
 
 '''
 получить данные по play-листам канала
@@ -38,9 +38,9 @@ playlists = youtube.playlists().list(channelId=channel_id,
                                      maxResults=50,
                                      ).execute()
 #printj(playlists)
-for playlist in playlists['items']:
-    print(playlist)
-    print()
+#for playlist in playlists['items']:
+#    print(playlist)
+#    print()
 
 
 '''
@@ -56,11 +56,11 @@ playlist_videos = youtube.playlistItems().list(playlistId=playlist_id,
                                                part='contentDetails',
                                                maxResults=50,
                                                ).execute()
-# printj(playlist_videos)
+printj(playlist_videos)
 
 # получить все id видеороликов из плейлиста
 video_ids: list[str] = [video['contentDetails']['videoId'] for video in playlist_videos['items']]
-# print(video_ids)
+#print(video_ids)
 
 
 '''
@@ -70,13 +70,13 @@ docs: https://developers.google.com/youtube/v3/docs/videos/list
 video_response = youtube.videos().list(part='contentDetails,statistics',
                                        id=','.join(video_ids)
                                        ).execute()
-# printj(video_response)
+#printj(video_response)
 
-for video in video_response['items']:
+#for video in video_response['items']:
     # YouTube video duration is in ISO 8601 format
-    iso_8601_duration = video['contentDetails']['duration']
-    duration = isodate.parse_duration(iso_8601_duration)
-    print(duration)
+#    iso_8601_duration = video['contentDetails']['duration']
+#    duration = isodate.parse_duration(iso_8601_duration)
+#    print(duration)
 
 
 '''

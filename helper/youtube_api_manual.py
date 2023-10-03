@@ -33,11 +33,15 @@ channel = youtube.channels().list(id=channel_id, part='snippet,statistics').exec
 получить данные по play-листам канала
 docs: https://developers.google.com/youtube/v3/docs/playlists/list
 '''
-playlists = youtube.playlists().list(channelId=channel_id,
-                                     part='contentDetails,snippet',
+playlist_id = 'PLH-XmS0lSi_zdhYvcwUfv0N88LQRt6UZn'
+playlists = youtube.playlists().list(id=playlist_id,
+                                     part='snippet',
                                      maxResults=50,
                                      ).execute()
 #printj(playlists)
+print(playlists['items'][0]['snippet']['title'] )
+print(playlists )
+print(playlists['items'][0]['snippet']['thumbnails']['default']['url'] )
 #for playlist in playlists['items']:
 #    print(playlist)
 #    print()
@@ -56,7 +60,7 @@ playlist_videos = youtube.playlistItems().list(playlistId=playlist_id,
                                                part='contentDetails',
                                                maxResults=50,
                                                ).execute()
-printj(playlist_videos)
+#printj(playlist_videos)
 
 # получить все id видеороликов из плейлиста
 video_ids: list[str] = [video['contentDetails']['videoId'] for video in playlist_videos['items']]

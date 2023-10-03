@@ -19,4 +19,5 @@ class PLVideo(Video ):
         super().__init__(id_video )
         self.id_video=id_video
         self.id_playlist=id_playlist
-
+a=Video('AWX4JnAnjBE')
+print(a.print_info_video()  )

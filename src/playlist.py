@@ -1,16 +1,12 @@
 from src.channel import Channel
-from src.video import Video
 from datetime import timedelta
-from helper.youtube_api_manual import  printj
-
 import isodate
-
 
 class PlayList:
     def __init__(self, id_pl):
         self.id_pl = id_pl
         self.title = self.print_info_playlist()['items'][0]['snippet']['title']
-        self.url = self.print_info_playlist()['items'][0]['snippet']['thumbnails']['default']['url']
+        self.url = f'https://www.youtube.com/playlist?list={self.id_pl}'
 
     def print_info_playlist(self):
         youtube = Channel.get_service()
@@ -19,7 +15,6 @@ class PlayList:
                                              maxResults=50,
                                              ).execute()
         return playlists
-        #youtube.playlists().list(id=playlist_id, part='snippet,contentDetails', maxResults=50).execute()
 
     def id_video_playList(self):
         """получить все id видеороликов из плейлиста в виде списка"""
@@ -60,9 +55,3 @@ class PlayList:
                 max_show = like_count
                 video_id = video['id']
         return f'https://youtu.be/{video_id}'
-#s=PlayList('PLv_zOGKKxVpj-n2qLkEM2Hj96LO6uqgQw')
-#print(s.id_video_playList()   )
-#print(s.url   )
-#print(s.show_best_video()   )
-
-

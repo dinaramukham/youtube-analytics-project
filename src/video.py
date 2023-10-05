@@ -1,4 +1,5 @@
 from src.channel import  Channel
+from helper.youtube_api_manual import  printj
 class Video:
     def __init__(self, video_id: str) -> None:
         self.video_id=video_id    # id видео
@@ -19,5 +20,7 @@ class PLVideo(Video ):
         super().__init__(id_video )
         self.id_video=id_video
         self.id_playlist=id_playlist
-a=Video('AWX4JnAnjBE')
-print(a.print_info_video()  )
+#a=Video('AWX4JnAnjBE')
+#print(a.url    )
+
+

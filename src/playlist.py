@@ -1,6 +1,7 @@
 from src.channel import Channel
 from src.video import Video
 from datetime import timedelta
+from helper.youtube_api_manual import  printj
 
 import isodate
 
@@ -18,6 +19,7 @@ class PlayList:
                                              maxResults=50,
                                              ).execute()
         return playlists
+        #youtube.playlists().list(id=playlist_id, part='snippet,contentDetails', maxResults=50).execute()
 
     def id_video_playList(self):
         """получить все id видеороликов из плейлиста в виде списка"""
@@ -27,14 +29,15 @@ class PlayList:
                                                        maxResults=50,
                                                        ).execute()
         video_ids: list[str] = [video['contentDetails']['videoId'] for video in playlist_videos['items']]
-        return video_ids
+        video_response = youtube.videos().list(part='contentDetails,statistics',
+                                               id=','.join(video_ids)
+                                               ).execute()
+        return video_response
 
     @property
     def total_duration(self):
-        youtube = Channel.get_service()
-        video_response = youtube.videos().list(part='contentDetails,statistics',
-                                               id=','.join(self.id_video_playList())
-                                               ).execute()
+
+        video_response = self.id_video_playList()
         list_time_delta = []
         for video in video_response['items']:
             # YouTube video duration is in ISO 8601 format
@@ -50,12 +53,16 @@ class PlayList:
     def show_best_video(self):
         video_ids = self.id_video_playList()
         max_show = 0
-        url=None
-        for video_id in video_ids:
-            exam = Video(video_id)
-            if max_show < int(exam.like_count):
-                max_show = int(exam.like_count)
-                url = exam.url
-        return url
+        video_id = ''
+        for video in video_ids['items']:
+            like_count = int(video['statistics']['likeCount'])
+            if like_count > max_show:
+                max_show = like_count
+                video_id = video['id']
+        return f'https://youtu.be/{video_id}'
+#s=PlayList('PLv_zOGKKxVpj-n2qLkEM2Hj96LO6uqgQw')
+#print(s.id_video_playList()   )
+#print(s.url   )
+#print(s.show_best_video()   )
 
 
